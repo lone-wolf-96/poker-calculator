@@ -29,7 +29,7 @@ To launch.json file, to use the Integrated Terminal.
 Other ways to run/debug this is up to you.
 
 ## Authors
-* **LoneWolf96** - *Initial work* - [renzo-sanchez-h](https://github.com/lone-wolf-96)
+* **LoneWolf96** - *Initial work* - [lone-wolf-96](https://github.com/lone-wolf-96)
 
 ## Contributing
 All kind of suggestions are welcome. This has academic purposes only.
