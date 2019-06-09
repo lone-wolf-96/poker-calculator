@@ -8,8 +8,7 @@ public enum Suits {
 
     private char suit;
 
-    private static Map<Character, Suits> suitBySuitValue =
-    new HashMap<Character, Suits>();
+    private static Map<Character, Suits> suitBySuitValue = new HashMap<Character, Suits>();
 
     static {
         for (Suits suit : Suits.values()) {

@@ -81,7 +81,7 @@ public final class Hand {
         if (isTwoPairs) {
             return HandRanks.TWO_PAIRS;
         }
-        if (isOnePair){
+        if (isOnePair) {
             return HandRanks.ONE_PAIR;
         }
 

@@ -35,6 +35,7 @@ public final class CalculatorTest {
 
     @Test
     public void testToString() {
-        assertEquals("Total Games: 1000\nPlayer 1: 376\nPlayer 2: 624\nTie: 0", new Calculator(FILE_PATH_SOURCE).toString());
+        assertEquals("Total Games: 1000\nPlayer 1: 376\nPlayer 2: 624\nTie: 0",
+                new Calculator(FILE_PATH_SOURCE).toString());
     }
 }

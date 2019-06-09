@@ -61,8 +61,8 @@ public final class Calculator {
             printWriter.close();
 
             return true;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | NullPointerException e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -88,8 +88,8 @@ public final class Calculator {
 
                 winners[checkWinners(hand1, hand2)]++;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | NullPointerException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -231,7 +231,7 @@ public final class Calculator {
         final int[] winners = getWinners();
         final int games = getGames();
 
-        return "Total Games: " + games + "\n" + "Player 1: " + winners[0] + "\n" + "Player 2: " + winners[1] + "\n" + "Tie: "
-                + winners[2];
+        return "Total Games: " + games + "\n" + "Player 1: " + winners[0] + "\n" + "Player 2: " + winners[1] + "\n"
+                + "Tie: " + winners[2];
     }
 }
