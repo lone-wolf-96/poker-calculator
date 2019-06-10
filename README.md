@@ -1,5 +1,5 @@
 # Poker Calculator
-This is a demo that 'calculates' the poker winning hand between 2 players through algorithms. It may not be optimum, but it's for academic purposes.
+This is a demo that 'calculates' the winning poker hand between 2 players through algorithms. It may not be optimum, but it's for academic purposes.
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
