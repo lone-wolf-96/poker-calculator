@@ -5,7 +5,7 @@ This is a demo that 'calculates' the winning poker hand between 2 players throug
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Installation
-It requires no other installation than having JDK (Java 8 minimum).
+It requires no other installation than having JDK (Java 8 minimum). Personally, I used JDK 12.
 
 ### Built with
 * [Visual Studio Code](https://code.visualstudio.com/) was the code editor used for this, so it requires extensions from [Java Extension Pack](https://code.visualstudio.com/docs/java/java-tutorial): https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack.
