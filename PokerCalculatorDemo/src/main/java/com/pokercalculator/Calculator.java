@@ -32,11 +32,9 @@ public final class Calculator {
     }
 
     public boolean printResults(String filePath) {
-        try {
+        try (final PrintWriter printWriter = new PrintWriter(new FileWriter(filePath))) {
             int[] winners = getWinners();
             int games = getGames();
-
-            final PrintWriter printWriter = new PrintWriter(new FileWriter(filePath));
 
             printWriter.println("Total Games: " + games);
 
@@ -58,54 +56,55 @@ public final class Calculator {
 
             printWriter.println("Fecha y Hora: " + format.format(new Date()));
 
-            printWriter.close();
-
             return true;
         } catch (IOException | NullPointerException e) {
             System.out.println(e.getMessage());
+
             return false;
         }
     }
 
     private void calculate(String filePath) {
-        try {
-            final String pokerData = getPokerData(filePath);
+        final String pokerData = getPokerData(filePath);
 
-            final String[] pokerArray = pokerData.split("-");
+        if (pokerData == null) {
+            return;
+        }
 
-            winners = new int[] { 0, 0, 0 };
-            games = pokerArray.length;
+        final String[] pokerArray = pokerData.split("-");
 
-            for (String game : pokerArray) {
-                final String[] gameArray = game.split(" ");
-                final int n = gameArray.length + 1;
+        winners = new int[] { 0, 0, 0 };
+        games = pokerArray.length;
 
-                final String handString1 = String.join(" ", Arrays.copyOfRange(gameArray, 0, n / 2));
-                final String handString2 = String.join(" ", Arrays.copyOfRange(gameArray, n / 2, gameArray.length));
+        for (String game : pokerArray) {
+            final String[] gameArray = game.split(" ");
+            final int n = gameArray.length + 1;
 
-                final Hand hand1 = new Hand(Hand.fromString(handString1));
-                final Hand hand2 = new Hand(Hand.fromString(handString2));
+            final String handString1 = String.join(" ", Arrays.copyOfRange(gameArray, 0, n / 2));
+            final String handString2 = String.join(" ", Arrays.copyOfRange(gameArray, n / 2, gameArray.length));
 
-                winners[checkWinners(hand1, hand2)]++;
-            }
-        } catch (IOException | NullPointerException e) {
-            System.out.println(e.getMessage());
+            final Hand hand1 = new Hand(Hand.fromString(handString1));
+            final Hand hand2 = new Hand(Hand.fromString(handString2));
+
+            winners[checkWinners(hand1, hand2)]++;
         }
     }
 
-    private String getPokerData(String filePath) throws IOException {
-        final BufferedReader reader = new BufferedReader(new FileReader(filePath));
+    private String getPokerData(String filePath) {
+        try (final BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            final StringJoiner sj = new StringJoiner("-");
 
-        String line;
-        final StringJoiner sj = new StringJoiner("-");
+            while ((line = reader.readLine()) != null) {
+                sj.add(line);
+            }
 
-        while ((line = reader.readLine()) != null) {
-            sj.add(line);
+            return sj.toString();
+        } catch (IOException | NullPointerException e) {
+            System.out.println(e.getMessage());
+
+            return null;
         }
-
-        reader.close();
-
-        return sj.toString();
     }
 
     private int breakTie(Hand hand1, Hand hand2) {

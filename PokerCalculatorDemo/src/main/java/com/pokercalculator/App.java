@@ -9,7 +9,7 @@ public final class App {
 
             String nextLine = sc.nextLine().trim();
             String sourcePath = (nextLine.length() > 0) ? nextLine + "\\pokerdata.txt"
-                    : System.getProperty("user.home") + "/Desktop/poker-calculator/pokerdata.txt";
+                    : System.getProperty("user.dir") + "/pokerdata.txt";
 
             final Calculator c = new Calculator(sourcePath);
 
@@ -18,7 +18,7 @@ public final class App {
             nextLine = sc.nextLine().trim();
 
             String targetPath = (nextLine.length() > 0) ? nextLine + "\\poker_results.txt"
-                    : System.getProperty("user.home") + "/Desktop/poker-calculator/poker_results.txt";
+                    : System.getProperty("user.dir") + "/poker_results.txt";
 
             if (c.printResults(targetPath)) {
                 System.out.println("Resultados exitosos en su Escritorio.");
