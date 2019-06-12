@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 import java.util.TreeMap;
 
-final class Utilities {
+final class Utility {
     static List<Integer> replaceAceForOneIf(int[] rankNumbers) {
         final boolean hasAceAndTwo = Arrays.binarySearch(rankNumbers, 14) > 0
                 && Arrays.binarySearch(rankNumbers, 2) > 0;

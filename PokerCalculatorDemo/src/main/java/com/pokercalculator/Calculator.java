@@ -130,8 +130,8 @@ public final class Calculator {
             return breakTieHighCard(rankNumbers1, rankNumbers2);
         }
 
-        final Map<Integer, Integer> frequencyMap1 = Utilities.getFrequencyMap(rankNumbers1);
-        final Map<Integer, Integer> frequencyMap2 = Utilities.getFrequencyMap(rankNumbers2);
+        final Map<Integer, Integer> frequencyMap1 = Utility.getFrequencyMap(rankNumbers1);
+        final Map<Integer, Integer> frequencyMap2 = Utility.getFrequencyMap(rankNumbers2);
 
         final int tieBreaker = breakTieRestHelper(rank);
 
@@ -159,12 +159,12 @@ public final class Calculator {
             return 2;
         }
 
-        final List<Integer> rankNumbersList1 = new LinkedList<Integer>(Utilities.toListInteger(rankNumbers1));
-        final List<Integer> rankNumbersList2 = new LinkedList<Integer>(Utilities.toListInteger(rankNumbers2));
+        final List<Integer> rankNumbersList1 = new LinkedList<Integer>(Utility.toListInteger(rankNumbers1));
+        final List<Integer> rankNumbersList2 = new LinkedList<Integer>(Utility.toListInteger(rankNumbers2));
 
-        final List<Integer> frequentEqualN1 = Utilities
+        final List<Integer> frequentEqualN1 = Utility
                 .toListInteger(frequencyMap1.keySet().stream().filter(key -> frequencyMap1.get(key) == n));
-        final List<Integer> frequentEqualN2 = Utilities
+        final List<Integer> frequentEqualN2 = Utility
                 .toListInteger(frequencyMap2.keySet().stream().filter(key -> frequencyMap2.get(key) == n));
 
         final int winners = breakTieHighCard(frequentEqualN1, frequentEqualN2);
@@ -180,8 +180,8 @@ public final class Calculator {
     }
 
     private int breakTieStraight(int[] rankNumbers1, int[] rankNumbers2) {
-        final List<Integer> ranksList1 = Utilities.replaceAceForOneIf(rankNumbers1);
-        final List<Integer> ranksList2 = Utilities.replaceAceForOneIf(rankNumbers2);
+        final List<Integer> ranksList1 = Utility.replaceAceForOneIf(rankNumbers1);
+        final List<Integer> ranksList2 = Utility.replaceAceForOneIf(rankNumbers2);
 
         final int max1 = Collections.max(ranksList1);
         final int max2 = Collections.max(ranksList2);

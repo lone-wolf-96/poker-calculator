@@ -52,7 +52,7 @@ public final class Hand {
             return HandRanks.STRAIGHT_FLUSH;
         }
 
-        final Map<Integer, Integer> frequencyMap = Utilities.getFrequencyMap(rankNumbers);
+        final Map<Integer, Integer> frequencyMap = Utility.getFrequencyMap(rankNumbers);
 
         final boolean isFourOfAKind = isFourOfAKind(frequencyMap);
 
@@ -121,7 +121,7 @@ public final class Hand {
     }
 
     private boolean isStraight(int[] rankNumbers) {
-        Utilities.replaceAceForOneIf(rankNumbers);
+        Utility.replaceAceForOneIf(rankNumbers);
 
         final int[] sequentialRanks = IntStream.range(rankNumbers[0], rankNumbers[0] + HAND_SIZE).toArray();
 
