@@ -28,6 +28,6 @@ public final class App {
     }
 
     private static String getFolder(String line, String fileName) {
-        return ((line.length() > 0) ? line + "\\" : System.getProperty("user.dir") + "/") + fileName;
+        return ((line.length() > 0) ? line : System.getProperty("user.dir")) + "\\" + fileName;
     }
 }

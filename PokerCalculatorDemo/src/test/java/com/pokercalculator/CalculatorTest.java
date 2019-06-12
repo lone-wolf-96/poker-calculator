@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public final class CalculatorTest {
-    private final String FILE_PATH_SOURCE = System.getProperty("user.dir") + "/pokerdata.txt";
+    private final String FILE_PATH_SOURCE = System.getProperty("user.dir") + "\\" + "pokerdata.txt";
 
     @Test
     public void testHand() {
@@ -28,7 +28,7 @@ public final class CalculatorTest {
 
     @Test
     public void testPrintResults() {
-        final String filePathTarget = System.getProperty("user.dir") + "/poker_results.txt";
+        final String filePathTarget = System.getProperty("user.dir") + "\\" + "poker_results.txt";
 
         assertTrue(new Calculator(FILE_PATH_SOURCE).printResults(filePathTarget));
     }
