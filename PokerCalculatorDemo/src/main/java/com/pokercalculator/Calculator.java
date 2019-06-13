@@ -218,12 +218,9 @@ public final class Calculator {
     }
 
     private int checkWinnersHelper(int num1, int num2) {
-        if (num1 > num2) {
-            return 0;
-        } else if (num1 < num2) {
-            return 1;
-        }
-        return 2;
+        int resultComparer = Integer.compare(num1, num2);
+
+        return (resultComparer + 2) % 3;
     }
 
     @Override
