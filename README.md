@@ -1,4 +1,4 @@
-# Poker Calculator
+# Poker Calculator in Java
 
 This is a demo that 'calculates' the winning poker hand between 2 players through algorithms. It may not be optimum, but it's for academic purposes.
 

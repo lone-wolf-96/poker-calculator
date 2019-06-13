@@ -10,7 +10,7 @@ public final class CalculatorTest {
     private final String FILE_PATH_SOURCE = System.getProperty("user.dir") + "\\" + "pokerdata.txt";
 
     @Test
-    public void testHand() {
+    public void testCalculator() {
         new Calculator(FILE_PATH_SOURCE);
     }
 
