@@ -35,6 +35,18 @@ public final class Hand {
         return cards;
     }
 
+    public String toStringName() {
+        final Card[] cards = getCards();
+
+        final StringJoiner sj = new StringJoiner("\n");
+
+        for (Card card : cards) {
+            sj.add(card.toStringName());
+        }
+
+        return sj.toString();
+    }
+
     private HandRanks evaluate() {
         final Supplier<Stream<Card>> cardsInHand = () -> Arrays.stream(getCards());
 
@@ -151,18 +163,6 @@ public final class Hand {
 
         for (Card card : cards) {
             sj.add(card.toString());
-        }
-
-        return sj.toString();
-    }
-
-    public String toStringName() {
-        final Card[] cards = getCards();
-
-        final StringJoiner sj = new StringJoiner("\n");
-
-        for (Card card : cards) {
-            sj.add(card.toStringName());
         }
 
         return sj.toString();

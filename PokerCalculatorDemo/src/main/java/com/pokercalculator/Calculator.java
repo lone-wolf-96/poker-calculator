@@ -33,6 +33,39 @@ public final class Calculator {
         return games;
     }
 
+    public boolean printResults(String filePath) {
+        try (final PrintWriter printWriter = new PrintWriter(new FileWriter(filePath))) {
+            int[] winners = getWinners();
+            int games = getGames();
+
+            printWriter.println("Total Games: " + games);
+
+            for (int i = 0; i < 3; i++) {
+                final String s = (i + 1) + ": " + winners[i];
+                printWriter.println(s);
+            }
+
+            String p1Percentage = String.format("%.2f", ((float) winners[0] / games) * 100);
+            String p2Percentage = String.format("%.2f", ((float) winners[1] / games) * 100);
+
+            printWriter.println("4:");
+            printWriter.println("--------- PLAYER 1 --------- | --------- PLAYER 2 ---------");
+            printWriter.println(
+                    "           " + p1Percentage + "%            |             " + p2Percentage + "%          ");
+            printWriter.println("---------------------------- | ----------------------------");
+
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+            printWriter.println("Date and Time: " + format.format(new Date()));
+
+            return true;
+        } catch (IOException | NullPointerException e) {
+            System.out.println(e.getMessage());
+
+            return false;
+        }
+    }
+
     private void calculate(String filePath) {
         final String pokerData = getPokerData(filePath);
 
@@ -72,39 +105,6 @@ public final class Calculator {
             System.out.println(e.getMessage());
 
             return null;
-        }
-    }
-
-    public boolean printResults(String filePath) {
-        try (final PrintWriter printWriter = new PrintWriter(new FileWriter(filePath))) {
-            int[] winners = getWinners();
-            int games = getGames();
-
-            printWriter.println("Total Games: " + games);
-
-            for (int i = 0; i < 3; i++) {
-                final String s = (i + 1) + ": " + winners[i];
-                printWriter.println(s);
-            }
-
-            String p1Percentage = String.format("%.2f", ((float) winners[0] / games) * 100);
-            String p2Percentage = String.format("%.2f", ((float) winners[1] / games) * 100);
-
-            printWriter.println("4:");
-            printWriter.println("--------- PLAYER 1 --------- | --------- PLAYER 2 ---------");
-            printWriter.println(
-                    "           " + p1Percentage + "%            |             " + p2Percentage + "%          ");
-            printWriter.println("---------------------------- | ----------------------------");
-
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-
-            printWriter.println("Date and Time: " + format.format(new Date()));
-
-            return true;
-        } catch (IOException | NullPointerException e) {
-            System.out.println(e.getMessage());
-
-            return false;
         }
     }
 

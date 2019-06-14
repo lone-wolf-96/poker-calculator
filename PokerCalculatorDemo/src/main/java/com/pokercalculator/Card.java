@@ -34,18 +34,18 @@ public final class Card {
         return new Card(rankValue, suitValue);
     }
 
+    public String toStringName() {
+        final String rankName = getRank().toString();
+        final String suitName = getSuit().toString();
+
+        return rankName + " OF " + suitName;
+    }
+
     @Override
     public String toString() {
         final char rankChar = getRank().getRankValue();
         final char suitChar = getSuit().getSuitValue();
 
         return rankChar + "" + suitChar;
-    }
-
-    public String toStringName() {
-        final String rankName = getRank().toString();
-        final String suitName = getSuit().toString();
-
-        return rankName + " OF " + suitName;
     }
 }

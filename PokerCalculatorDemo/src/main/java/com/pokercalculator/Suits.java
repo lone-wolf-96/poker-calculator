@@ -16,15 +16,15 @@ public enum Suits {
         }
     }
 
-    private Suits(char suit) {
-        this.suit = suit;
-    }
-
     public char getSuitValue() {
         return suit;
     }
 
     public static Suits getSuitBySuitValue(char suitValue) {
         return suitBySuitValue.get(suitValue);
+    }
+
+    private Suits(char suit) {
+        this.suit = suit;
     }
 }

@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.stream.Stream;
 import java.util.TreeMap;
 
-final class Utility {
-    static List<Integer> replaceAceForOneIf(int[] rankNumbers) {
+public final class Utility {
+    public static List<Integer> replaceAceForOneIf(int[] rankNumbers) {
         final boolean hasAceAndTwo = Arrays.binarySearch(rankNumbers, 14) > 0
                 && Arrays.binarySearch(rankNumbers, 2) > 0;
 
@@ -23,15 +23,15 @@ final class Utility {
         return ranksList;
     }
 
-    static List<Integer> toListInteger(int[] array) {
+    public static List<Integer> toListInteger(int[] array) {
         return toListInteger(Arrays.stream(array).boxed());
     }
 
-    static List<Integer> toListInteger(Stream<Integer> streamInteger) {
+    public static List<Integer> toListInteger(Stream<Integer> streamInteger) {
         return Arrays.asList(streamInteger.toArray(Integer[]::new));
     }
 
-    static Map<Integer, Integer> getFrequencyMap(int[] rankNumbers) {
+    public static Map<Integer, Integer> getFrequencyMap(int[] rankNumbers) {
         final Map<Integer, Integer> integersCount = new TreeMap<Integer, Integer>();
 
         for (int i : rankNumbers) {

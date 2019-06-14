@@ -18,11 +18,6 @@ public enum Ranks {
         }
     }
 
-    private Ranks(int rankNumber, char rankValue) {
-        this.rankNumber = rankNumber;
-        this.rankValue = rankValue;
-    }
-
     public char getRankValue() {
         return rankValue;
     }
@@ -33,5 +28,10 @@ public enum Ranks {
 
     public static Ranks getRankByRankValue(char rankValue) {
         return rankByRankValue.get(rankValue);
+    }
+
+    private Ranks(int rankNumber, char rankValue) {
+        this.rankNumber = rankNumber;
+        this.rankValue = rankValue;
     }
 }
