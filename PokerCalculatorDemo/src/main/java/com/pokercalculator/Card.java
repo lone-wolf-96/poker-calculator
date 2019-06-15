@@ -18,20 +18,17 @@ public final class Card {
     }
 
     public static Card fromString(String input) {
-        final char rank = input.charAt(0);
-        final char suit = input.charAt(1);
+        final Ranks rank = Ranks.getRankByRankValue(input.charAt(0));
+        final Suits suit = Suits.getSuitBySuitValue(input.charAt(1));
 
-        final Ranks rankValue = Ranks.getRankByRankValue(rank);
-        final Suits suitValue = Suits.getSuitBySuitValue(suit);
-
-        if (rankValue == null) {
+        if (rank == null) {
             throw new IllegalArgumentException("Invalid rank.");
         }
-        if (suitValue == null) {
+        if (suit == null) {
             throw new IllegalArgumentException("Invalid suit.");
         }
 
-        return new Card(rankValue, suitValue);
+        return new Card(rank, suit);
     }
 
     public String toStringName() {

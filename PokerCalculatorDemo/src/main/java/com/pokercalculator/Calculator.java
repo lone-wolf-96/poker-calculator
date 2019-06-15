@@ -120,6 +120,7 @@ public final class Calculator {
 
         final int[] rankNumbers1 = cardsInHand1.mapToInt(card -> card.getRank().getRankNumber()).toArray();
         Arrays.sort(rankNumbers1);
+
         final int[] rankNumbers2 = cardsInHand2.mapToInt(card -> card.getRank().getRankNumber()).toArray();
         Arrays.sort(rankNumbers2);
 
@@ -181,11 +182,8 @@ public final class Calculator {
     }
 
     private int breakTieStraight(int[] rankNumbers1, int[] rankNumbers2) {
-        final List<Integer> ranksList1 = Utility.replaceAceForOneIf(rankNumbers1);
-        final List<Integer> ranksList2 = Utility.replaceAceForOneIf(rankNumbers2);
-
-        final int max1 = Collections.max(ranksList1);
-        final int max2 = Collections.max(ranksList2);
+        final int max1 = Collections.max(Utility.replaceAceForOneIf(rankNumbers1));
+        final int max2 = Collections.max(Utility.replaceAceForOneIf(rankNumbers2));
 
         return checkWinnersHelper(max1, max2);
     }
@@ -202,8 +200,8 @@ public final class Calculator {
     }
 
     private int breakTieHighCard(List<Integer> rankNumbersList1, List<Integer> rankNumbersList2) {
-        final int[] rankNumbers1 = rankNumbersList1.stream().mapToInt(i -> i).toArray();
-        final int[] rankNumbers2 = rankNumbersList2.stream().mapToInt(i -> i).toArray();
+        final int[] rankNumbers1 = Utility.toIntArray(rankNumbersList1);
+        final int[] rankNumbers2 = Utility.toIntArray(rankNumbersList2);
 
         return breakTieHighCard(rankNumbers1, rankNumbers2);
     }

@@ -48,9 +48,10 @@ public final class Hand {
     private HandRanks evaluate() {
         final Supplier<Stream<Card>> cardsInHand = () -> Arrays.stream(getCards());
 
-        final boolean isFlush = isFlush(cardsInHand.get());
+        final boolean isFlush = cardsInHand.get().map(card -> card.getSuit()).distinct().count() == 1;
 
         final int[] rankNumbers = cardsInHand.get().mapToInt(card -> card.getRank().getRankNumber()).toArray();
+
         Arrays.sort(rankNumbers);
 
         final boolean isStraight = isStraight(rankNumbers);
@@ -64,12 +65,12 @@ public final class Hand {
 
         final Map<Integer, Integer> frequencyMap = Utility.getFrequencyMap(rankNumbers);
 
-        if (isFourOfAKind(frequencyMap)) {
+        if (frequencyMap.containsValue(4)) {
             return HandRanks.FOUR_OF_A_KIND;
         }
 
-        final boolean isThreeOfAKind = isThreeOfAKind(frequencyMap);
-        final boolean isOnePair = isOnePair(frequencyMap);
+        final boolean isThreeOfAKind = frequencyMap.containsValue(3);
+        final boolean isOnePair = frequencyMap.containsValue(2);
 
         if (isThreeOfAKind && isOnePair) {
             return HandRanks.FULL_HOUSE;
@@ -84,7 +85,7 @@ public final class Hand {
             return HandRanks.THREE_OF_A_KIND;
         }
 
-        if (isTwoPairs(frequencyMap)) {
+        if (Collections.frequency(frequencyMap.values(), 2) == 2) {
             return HandRanks.TWO_PAIRS;
         }
         if (isOnePair) {
@@ -92,28 +93,6 @@ public final class Hand {
         }
 
         return HandRanks.HIGH_CARD;
-    }
-
-    private boolean isTwoPairs(Map<Integer, Integer> frequencyMap) {
-        return Collections.frequency(frequencyMap.values(), 2) == 2;
-    }
-
-    private boolean isOnePair(Map<Integer, Integer> frequencyMap) {
-        return frequencyMap.containsValue(2);
-    }
-
-    private boolean isThreeOfAKind(Map<Integer, Integer> frequencyMap) {
-        return frequencyMap.containsValue(3);
-    }
-
-    private boolean isFourOfAKind(Map<Integer, Integer> frequencyMap) {
-        return frequencyMap.containsValue(4);
-    }
-
-    private boolean isFlush(Stream<Card> cardsInHand) {
-        final Stream<Suits> suits = cardsInHand.map(card -> card.getSuit());
-
-        return suits.distinct().count() == 1;
     }
 
     private boolean isStraight(int[] rankNumbers) {

@@ -31,6 +31,10 @@ public final class Utility {
         return Arrays.asList(streamInteger.toArray(Integer[]::new));
     }
 
+    public static int[] toIntArray(List<Integer> list){
+        return list.stream().mapToInt(i -> i).toArray();
+    }
+
     public static Map<Integer, Integer> getFrequencyMap(int[] rankNumbers) {
         final Map<Integer, Integer> integersCount = new TreeMap<Integer, Integer>();
 
