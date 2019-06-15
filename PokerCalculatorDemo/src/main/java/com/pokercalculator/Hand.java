@@ -66,9 +66,7 @@ public final class Hand {
 
         final Map<Integer, Integer> frequencyMap = Utility.getFrequencyMap(rankNumbers);
 
-        final boolean isFourOfAKind = isFourOfAKind(frequencyMap);
-
-        if (isFourOfAKind) {
+        if (isFourOfAKind(frequencyMap)) {
             return HandRanks.FOUR_OF_A_KIND;
         }
 
@@ -88,9 +86,7 @@ public final class Hand {
             return HandRanks.THREE_OF_A_KIND;
         }
 
-        final boolean isTwoPairs = isTwoPairs(frequencyMap);
-
-        if (isTwoPairs) {
+        if (isTwoPairs(frequencyMap)) {
             return HandRanks.TWO_PAIRS;
         }
         if (isOnePair) {
