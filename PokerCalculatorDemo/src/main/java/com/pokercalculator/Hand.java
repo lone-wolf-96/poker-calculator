@@ -30,9 +30,7 @@ public final class Hand {
     public static Card[] fromString(String input) {
         final Stream<String> parts = Arrays.stream(input.split(" "));
 
-        final Card[] cards = parts.map(part -> Card.fromString(part)).toArray(Card[]::new);
-
-        return cards;
+        return parts.map(part -> Card.fromString(part)).toArray(Card[]::new);
     }
 
     public String toStringName() {
@@ -97,35 +95,25 @@ public final class Hand {
     }
 
     private boolean isTwoPairs(Map<Integer, Integer> frequencyMap) {
-        final boolean isTwoPairs = Collections.frequency(frequencyMap.values(), 2) == 2;
-
-        return isTwoPairs;
+        return Collections.frequency(frequencyMap.values(), 2) == 2;
     }
 
     private boolean isOnePair(Map<Integer, Integer> frequencyMap) {
-        final boolean isOnePair = frequencyMap.containsValue(2);
-
-        return isOnePair;
+        return frequencyMap.containsValue(2);
     }
 
     private boolean isThreeOfAKind(Map<Integer, Integer> frequencyMap) {
-        final boolean isThreeOfAKind = frequencyMap.containsValue(3);
-
-        return isThreeOfAKind;
+        return frequencyMap.containsValue(3);
     }
 
     private boolean isFourOfAKind(Map<Integer, Integer> frequencyMap) {
-        final boolean isFourOfAKind = frequencyMap.containsValue(4);
-
-        return isFourOfAKind;
+        return frequencyMap.containsValue(4);
     }
 
     private boolean isFlush(Stream<Card> cardsInHand) {
         final Stream<Suits> suits = cardsInHand.map(card -> card.getSuit());
 
-        final boolean isFlush = suits.distinct().count() == 1;
-
-        return isFlush;
+        return suits.distinct().count() == 1;
     }
 
     private boolean isStraight(int[] rankNumbers) {
@@ -133,22 +121,18 @@ public final class Hand {
 
         final int[] sequentialRanks = IntStream.range(rankNumbers[0], rankNumbers[0] + HAND_SIZE).toArray();
 
-        final boolean isStraight = Arrays.equals(sequentialRanks, rankNumbers);
-
-        return isStraight;
+        return Arrays.equals(sequentialRanks, rankNumbers);
     }
 
     private boolean isRoyal(Stream<Card> cardsInHand) {
         final int ten = Ranks.TEN.getRankNumber();
         final int ace = Ranks.ACE.getRankNumber();
 
-        final boolean isRoyal = cardsInHand.allMatch(card -> {
+        return cardsInHand.allMatch(card -> {
             final int cardNumber = card.getRank().getRankNumber();
 
             return ten <= cardNumber && cardNumber <= ace;
         });
-
-        return isRoyal;
     }
 
     @Override
