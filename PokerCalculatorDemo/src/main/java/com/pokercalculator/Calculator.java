@@ -132,12 +132,13 @@ public final class Calculator {
             return breakTieHighCard(rankNumbers1, rankNumbers2);
         }
 
-        final Map<Integer, Integer> frequencyMap1 = Utility.getFrequencyMap(rankNumbers1);
-        final Map<Integer, Integer> frequencyMap2 = Utility.getFrequencyMap(rankNumbers2);
-
         final int tieBreaker = breakTieRestHelper(rank);
 
-        return breakTieRest(rankNumbers1, rankNumbers2, frequencyMap1, frequencyMap2, tieBreaker);
+        if (tieBreaker == -1) {
+            return 2;
+        }
+
+        return breakTieRest(rankNumbers1, rankNumbers2, tieBreaker);
     }
 
     private int breakTieRestHelper(HandRanks rank) {
@@ -155,19 +156,17 @@ public final class Calculator {
         }
     }
 
-    private int breakTieRest(int[] rankNumbers1, int[] rankNumbers2, Map<Integer, Integer> frequencyMap1,
-            Map<Integer, Integer> frequencyMap2, int n) {
-        if (n == -1) {
-            return 2;
-        }
+    private int breakTieRest(int[] rankNumbers1, int[] rankNumbers2, int tieBreaker) {
+        final Map<Integer, Integer> frequencyMap1 = Utility.getFrequencyMap(rankNumbers1);
+        final Map<Integer, Integer> frequencyMap2 = Utility.getFrequencyMap(rankNumbers2);
 
         final List<Integer> rankNumbersList1 = new LinkedList<Integer>(Utility.toListInteger(rankNumbers1));
         final List<Integer> rankNumbersList2 = new LinkedList<Integer>(Utility.toListInteger(rankNumbers2));
 
         final List<Integer> frequentEqualN1 = Utility
-                .toListInteger(frequencyMap1.keySet().stream().filter(key -> frequencyMap1.get(key) == n));
+                .toListInteger(frequencyMap1.keySet().stream().filter(key -> frequencyMap1.get(key) == tieBreaker));
         final List<Integer> frequentEqualN2 = Utility
-                .toListInteger(frequencyMap2.keySet().stream().filter(key -> frequencyMap2.get(key) == n));
+                .toListInteger(frequencyMap2.keySet().stream().filter(key -> frequencyMap2.get(key) == tieBreaker));
 
         final int winners = breakTieHighCard(frequentEqualN1, frequentEqualN2);
 
