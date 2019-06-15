@@ -182,10 +182,10 @@ public final class Calculator {
     }
 
     private int breakTieStraight(int[] rankNumbers1, int[] rankNumbers2) {
-        final int max1 = Collections.max(Utility.replaceAceForOneIf(rankNumbers1));
-        final int max2 = Collections.max(Utility.replaceAceForOneIf(rankNumbers2));
+        final List<Integer> ranksList1 = Utility.toListInteger(Utility.replaceAceForOneIf(rankNumbers1));
+        final List<Integer> ranksList2 = Utility.toListInteger(Utility.replaceAceForOneIf(rankNumbers2));
 
-        return checkWinnersHelper(max1, max2);
+        return checkWinnersHelper(Collections.max(ranksList1), Collections.max(ranksList2));
     }
 
     private int breakTieHighCard(int[] rankNumbers1, int[] rankNumbers2) {

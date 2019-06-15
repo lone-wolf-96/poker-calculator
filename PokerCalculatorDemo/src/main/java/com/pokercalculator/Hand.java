@@ -96,7 +96,7 @@ public final class Hand {
     }
 
     private boolean isStraight(int[] rankNumbers) {
-        Utility.replaceAceForOneIf(rankNumbers);
+        rankNumbers = Utility.replaceAceForOneIf(rankNumbers);
 
         final int[] sequentialRanks = IntStream.range(rankNumbers[0], rankNumbers[0] + HAND_SIZE).toArray();
 

@@ -8,19 +8,21 @@ import java.util.stream.Stream;
 import java.util.TreeMap;
 
 public final class Utility {
-    public static List<Integer> replaceAceForOneIf(int[] rankNumbers) {
+    public static int[] replaceAceForOneIf(int[] rankNumbers) {
         final boolean hasAceAndTwo = Arrays.binarySearch(rankNumbers, 14) > 0
                 && Arrays.binarySearch(rankNumbers, 2) > 0;
 
-        List<Integer> ranksList = toListInteger(rankNumbers);
-
         if (hasAceAndTwo) {
+            List<Integer> ranksList = toListInteger(rankNumbers);
+
             Collections.replaceAll(ranksList, 14, 1);
+
+            rankNumbers = toIntArray(ranksList);
 
             Arrays.sort(rankNumbers);
         }
 
-        return ranksList;
+        return rankNumbers;
     }
 
     public static List<Integer> toListInteger(int[] array) {
@@ -31,7 +33,7 @@ public final class Utility {
         return Arrays.asList(streamInteger.toArray(Integer[]::new));
     }
 
-    public static int[] toIntArray(List<Integer> list){
+    public static int[] toIntArray(List<Integer> list) {
         return list.stream().mapToInt(i -> i).toArray();
     }
 
