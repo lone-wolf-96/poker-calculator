@@ -42,14 +42,14 @@ public final class CardTest {
     }
 
     @Test
-    public void testToString() {
-        assertEquals("7D", new Card(Ranks.SEVEN, Suits.DIAMONDS).toString());
-        assertEquals("KH", new Card(Ranks.KING, Suits.HEARTS).toString());
-    }
-
-    @Test
     public void testToStringName() {
         assertEquals("TWO OF CLUBS", new Card(Ranks.TWO, Suits.CLUBS).toStringName());
         assertEquals("ACE OF SPADES", new Card(Ranks.ACE, Suits.SPADES).toStringName());
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals("7D", new Card(Ranks.SEVEN, Suits.DIAMONDS).toString());
+        assertEquals("KH", new Card(Ranks.KING, Suits.HEARTS).toString());
     }
 }

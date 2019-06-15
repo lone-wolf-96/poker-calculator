@@ -65,19 +65,6 @@ public final class HandTest {
         }
 
         @Test
-        public void testToString() {
-                final Card[] cards1 = new Card[] { new Card(Ranks.JACK, Suits.SPADES),
-                                new Card(Ranks.FOUR, Suits.HEARTS), new Card(Ranks.FIVE, Suits.DIAMONDS),
-                                new Card(Ranks.NINE, Suits.DIAMONDS), new Card(Ranks.JACK, Suits.CLUBS) };
-                assertEquals("JS 4H 5D 9D JC", new Hand(cards1).toString());
-
-                final Card[] cards2 = new Card[] { new Card(Ranks.QUEEN, Suits.CLUBS), new Card(Ranks.TEN, Suits.CLUBS),
-                                new Card(Ranks.SIX, Suits.HEARTS), new Card(Ranks.FIVE, Suits.SPADES),
-                                new Card(Ranks.THREE, Suits.HEARTS) };
-                assertEquals("QC TC 6H 5S 3H", new Hand(cards2).toString());
-        }
-
-        @Test
         public void testToStringName() {
                 final Card[] cards1 = new Card[] { new Card(Ranks.JACK, Suits.SPADES),
                                 new Card(Ranks.FOUR, Suits.HEARTS), new Card(Ranks.FIVE, Suits.DIAMONDS),
@@ -90,5 +77,18 @@ public final class HandTest {
                                 new Card(Ranks.THREE, Suits.HEARTS) };
                 assertEquals("QUEEN OF CLUBS\nTEN OF CLUBS\nSIX OF HEARTS\nFIVE OF SPADES\nTHREE OF HEARTS",
                                 new Hand(cards2).toStringName());
+        }
+
+        @Test
+        public void testToString() {
+                final Card[] cards1 = new Card[] { new Card(Ranks.JACK, Suits.SPADES),
+                                new Card(Ranks.FOUR, Suits.HEARTS), new Card(Ranks.FIVE, Suits.DIAMONDS),
+                                new Card(Ranks.NINE, Suits.DIAMONDS), new Card(Ranks.JACK, Suits.CLUBS) };
+                assertEquals("JS 4H 5D 9D JC", new Hand(cards1).toString());
+
+                final Card[] cards2 = new Card[] { new Card(Ranks.QUEEN, Suits.CLUBS), new Card(Ranks.TEN, Suits.CLUBS),
+                                new Card(Ranks.SIX, Suits.HEARTS), new Card(Ranks.FIVE, Suits.SPADES),
+                                new Card(Ranks.THREE, Suits.HEARTS) };
+                assertEquals("QC TC 6H 5S 3H", new Hand(cards2).toString());
         }
 }

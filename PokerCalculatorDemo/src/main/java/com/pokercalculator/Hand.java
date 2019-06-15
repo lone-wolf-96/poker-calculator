@@ -57,10 +57,10 @@ public final class Hand {
 
         final boolean isStraight = isStraight(rankNumbers);
 
-        if (isFlush && isStraight && isRoyal(cardsInHand.get())) {
-            return HandRanks.ROYAL_FLUSH;
-        }
         if (isFlush && isStraight) {
+            if (isRoyal(cardsInHand.get())) {
+                return HandRanks.ROYAL_FLUSH;
+            }
             return HandRanks.STRAIGHT_FLUSH;
         }
 
