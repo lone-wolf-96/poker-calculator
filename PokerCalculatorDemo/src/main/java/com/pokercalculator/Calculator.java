@@ -60,7 +60,7 @@ public final class Calculator {
 
             return true;
         } catch (IOException | NullPointerException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.toString());
 
             return false;
         }
@@ -87,7 +87,7 @@ public final class Calculator {
             final Hand hand1 = new Hand(Hand.fromString(handString1));
             final Hand hand2 = new Hand(Hand.fromString(handString2));
 
-            winners[checkWinners(hand1, hand2)]++;
+            winners[checkWinner(hand1, hand2)]++;
         }
     }
 
@@ -102,7 +102,7 @@ public final class Calculator {
 
             return sj.toString();
         } catch (IOException | NullPointerException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.toString());
 
             return null;
         }
@@ -163,19 +163,19 @@ public final class Calculator {
         final List<Integer> rankNumbersList1 = new LinkedList<Integer>(Utility.toListInteger(rankNumbers1));
         final List<Integer> rankNumbersList2 = new LinkedList<Integer>(Utility.toListInteger(rankNumbers2));
 
-        final List<Integer> frequentEqualN1 = Utility
-                .toListInteger(frequencyMap1.keySet().stream().filter(key -> frequencyMap1.get(key) == tieBreaker));
-        final List<Integer> frequentEqualN2 = Utility
-                .toListInteger(frequencyMap2.keySet().stream().filter(key -> frequencyMap2.get(key) == tieBreaker));
+        final int frequentEqualN1 = frequencyMap1.keySet().stream().filter(key -> frequencyMap1.get(key) == tieBreaker)
+                .findAny().get();
+        final int frequentEqualN2 = frequencyMap2.keySet().stream().filter(key -> frequencyMap2.get(key) == tieBreaker)
+                .findAny().get();
 
-        final int winners = breakTieHighCard(frequentEqualN1, frequentEqualN2);
+        final int winners = checkWinnerHelper(frequentEqualN1, frequentEqualN2);
 
         if (winners != 2) {
             return winners;
         }
 
-        rankNumbersList1.removeAll(frequentEqualN1);
-        rankNumbersList2.removeAll(frequentEqualN2);
+        rankNumbersList1.removeAll(Arrays.asList(frequentEqualN1));
+        rankNumbersList2.removeAll(Arrays.asList(frequentEqualN2));
 
         return breakTieHighCard(rankNumbersList1, rankNumbersList2);
     }
@@ -184,13 +184,13 @@ public final class Calculator {
         final List<Integer> ranksList1 = Utility.toListInteger(Utility.replaceAceForOneIf(rankNumbers1));
         final List<Integer> ranksList2 = Utility.toListInteger(Utility.replaceAceForOneIf(rankNumbers2));
 
-        return checkWinnersHelper(Collections.max(ranksList1), Collections.max(ranksList2));
+        return checkWinnerHelper(Collections.max(ranksList1), Collections.max(ranksList2));
     }
 
     private int breakTieHighCard(int[] rankNumbers1, int[] rankNumbers2) {
         int winners = 2;
         for (int i = rankNumbers1.length - 1; i >= 0; i--) {
-            winners = checkWinnersHelper(rankNumbers1[i], rankNumbers2[i]);
+            winners = checkWinnerHelper(rankNumbers1[i], rankNumbers2[i]);
             if (winners != 2) {
                 return winners;
             }
@@ -205,16 +205,16 @@ public final class Calculator {
         return breakTieHighCard(rankNumbers1, rankNumbers2);
     }
 
-    private int checkWinners(Hand hand1, Hand hand2) {
+    private int checkWinner(Hand hand1, Hand hand2) {
         final int hand1Rank = hand1.getHandRank().ordinal();
         final int hand2Rank = hand2.getHandRank().ordinal();
 
-        int winners = checkWinnersHelper(hand1Rank, hand2Rank);
+        int winners = checkWinnerHelper(hand1Rank, hand2Rank);
 
         return winners != 2 ? winners : breakTie(hand1, hand2);
     }
 
-    private int checkWinnersHelper(int num1, int num2) {
+    private int checkWinnerHelper(int num1, int num2) {
         int resultComparer = Integer.compare(num1, num2);
 
         return (resultComparer + 2) % 3;

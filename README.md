@@ -12,7 +12,7 @@ It requires no other installation than having JDK (Java 8 minimum). Personally, 
 
 ### Built with
 
-* [Visual Studio Code](https://code.visualstudio.com/) was the code editor used for this, so it requires extensions from [Java Extension Pack](https://code.visualstudio.com/docs/java/java-tutorial): <https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack.>
+* [Visual Studio Code](https://code.visualstudio.com/) was the code editor used for this, so it requires extensions from [Java Extension Pack](https://code.visualstudio.com/docs/java/java-tutorial): <https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack>
 
 * [Maven](https://maven.apache.org/) was used for scaffolding this project, specifically Maven Archetype Quickstart for Java 8.
 
@@ -24,24 +24,22 @@ Unit tests are included.
 
 ### Bear-in-mind
 
-As Visual Studio Code Output Console cannot receive inputs, it's necessary to add this:
+As Visual Studio Code Output Console cannot receive inputs, it's necessary you add this to the generated launch.json file to use the Integrated Terminal:
 
 ```json
 "console": "integratedTerminal"
 ```
 
-To launch.json file, to use the Integrated Terminal.
-
-Other ways to run/debug this is up to you.
+Other ways to run/debug is up to you.
 
 ## Authors
 
-* **LoneWolf96** - *Initial work* - [lone-wolf-96](https://github.com/lone-wolf-96)
+* **LoneWolf96** - *Final work* - [lone-wolf-96](https://github.com/lone-wolf-96/)
 
 ## Contributing
 
-All kind of suggestions are welcome. This has academic purposes only.
+All kinds of suggestions are welcome. This has academic purposes only.
 
 ## License
 
-This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/).
+This project is licensed under the [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/).

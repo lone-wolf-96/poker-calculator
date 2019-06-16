@@ -19,7 +19,7 @@ public final class App {
                 System.err.println("There's been an error processing the information.");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.toString());
         }
     }
 
