@@ -10,7 +10,7 @@ This is the Java version of:
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-Probably needed: [Writing Java with Visual Studio Code](https://code.visualstudio.com/docs/java/java-tutorial).
+Probably needed: [Writing Java with Visual Studio Code](https://code.visualstudio.com/docs/java/java-tutorial/).
 
 ### Installation
 
@@ -18,9 +18,11 @@ It requires no other installation than having JDK (Java 8 minimum). Personally, 
 
 ### Built with
 
-* [Visual Studio Code](https://code.visualstudio.com/) was the code editor used for this, so it requires extensions from [Java Extension Pack](https://code.visualstudio.com/docs/languages/java), as VSCode suggests: <https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack>.
+* [Visual Studio Code](https://code.visualstudio.com/) was the code editor used for this, so it requires extensions from [Java Extension Pack](https://code.visualstudio.com/docs/languages/java/), as VSCode suggests: <https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack>.
 
-* [Maven](https://maven.apache.org/) was used for scaffolding this project, specifically Maven Archetype Quickstart for Java 8.
+* [Maven](https://maven.apache.org/) was used for scaffolding this project, specifically 'Maven Archetype Quickstart for Java 8'. Helpful: [Java Project Management in VS Code](https://code.visualstudio.com/docs/java/java-project#_maven).
+
+* [JUnit](https://junit.org/) was used for testing. This may help: [Testing Java with Visual Studio Code](https://code.visualstudio.com/docs/java/java-testing/).
 
 ### Usage
 
