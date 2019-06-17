@@ -18,7 +18,7 @@ It requires no other installation than having JDK (Java 8 minimum). Personally, 
 
 ### Built with
 
-* [Visual Studio Code](https://code.visualstudio.com/) was the code editor used for this, so it requires extensions from [Java Extension Pack](https://code.visualstudio.com/docs/languages/java), as VSCode suggests: <https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack>
+* [Visual Studio Code](https://code.visualstudio.com/) was the code editor used for this, so it requires extensions from [Java Extension Pack](https://code.visualstudio.com/docs/languages/java), as VSCode suggests: <https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack>.
 
 * [Maven](https://maven.apache.org/) was used for scaffolding this project, specifically Maven Archetype Quickstart for Java 8.
 
