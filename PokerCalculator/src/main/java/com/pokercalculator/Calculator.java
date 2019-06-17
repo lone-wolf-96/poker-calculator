@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 public final class Calculator {
@@ -92,14 +91,9 @@ public final class Calculator {
 
     private String getPokerData(String filePath) {
         try (final BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            final StringJoiner sj = new StringJoiner("-");
+            String[] lines = reader.lines().toArray(String[]::new);
 
-            while ((line = reader.readLine()) != null) {
-                sj.add(line);
-            }
-
-            return sj.toString();
+            return String.join("-", lines);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e);
