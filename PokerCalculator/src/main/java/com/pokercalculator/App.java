@@ -16,10 +16,11 @@ public final class App {
             if (new Calculator(sourcePath).printResults(targetPath)) {
                 System.out.println("Successful results in your folder.");
             } else {
-                System.err.println("There's been an error processing the information.");
+                System.out.println("There's been an error processing the information.");
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
+            System.out.println(e);
         }
     }
 

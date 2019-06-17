@@ -3,7 +3,6 @@ package com.pokercalculator;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -59,9 +58,9 @@ public final class Calculator {
             printWriter.print("Date and Time: " + format.format(new Date()));
 
             return true;
-        } catch (IOException | NullPointerException e) {
-            System.out.println(e.toString());
-
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e);
             return false;
         }
     }
@@ -101,9 +100,9 @@ public final class Calculator {
             }
 
             return sj.toString();
-        } catch (IOException | NullPointerException e) {
-            System.out.println(e.toString());
-
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e);
             return null;
         }
     }
