@@ -56,7 +56,7 @@ public final class Calculator {
 
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
-            printWriter.println("Date and Time: " + format.format(new Date()));
+            printWriter.print("Date and Time: " + format.format(new Date()));
 
             return true;
         } catch (IOException | NullPointerException e) {
