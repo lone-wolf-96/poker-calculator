@@ -114,6 +114,6 @@ public final class Hand {
 
         final String[] cardNames = cards.map(card -> card.toString()).toArray(String[]::new);
 
-        return String.join("\n", cardNames);
+        return String.join(" ", cardNames);
     }
 }
