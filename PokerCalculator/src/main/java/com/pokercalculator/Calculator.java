@@ -39,8 +39,7 @@ public final class Calculator {
             printWriter.println("Total Games: " + games);
 
             for (int i = 0; i < 3; i++) {
-                final String s = (i + 1) + ": " + winners[i];
-                printWriter.println(s);
+                printWriter.println((i + 1) + ": " + winners[i]);
             }
 
             String p1Percentage = String.format("%.2f", ((float) winners[0] / games) * 100);
