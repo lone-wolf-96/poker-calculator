@@ -77,10 +77,10 @@ public final class Calculator {
 
         for (String game : pokerArray) {
             final String[] gameArray = game.split(" ");
-            final int n = gameArray.length + 1;
+            final int n = (gameArray.length + 1) / 2;
 
-            final String handString1 = String.join(" ", Arrays.copyOfRange(gameArray, 0, n / 2));
-            final String handString2 = String.join(" ", Arrays.copyOfRange(gameArray, n / 2, gameArray.length));
+            final String handString1 = String.join(" ", Arrays.copyOfRange(gameArray, 0, n));
+            final String handString2 = String.join(" ", Arrays.copyOfRange(gameArray, n, gameArray.length));
 
             final Hand hand1 = new Hand(Hand.fromString(handString1));
             final Hand hand2 = new Hand(Hand.fromString(handString2));
