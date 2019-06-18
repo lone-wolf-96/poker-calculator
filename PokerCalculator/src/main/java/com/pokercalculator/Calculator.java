@@ -135,16 +135,16 @@ public final class Calculator {
 
     private int breakTieRestHelper(HandRanks rank) {
         switch (rank) {
-        case FOUR_OF_A_KIND:
-            return 4;
-        case FULL_HOUSE:
-        case THREE_OF_A_KIND:
-            return 3;
-        case TWO_PAIRS:
-        case ONE_PAIR:
-            return 2;
-        default:
-            return -1;
+            case FOUR_OF_A_KIND:
+                return 4;
+            case FULL_HOUSE:
+            case THREE_OF_A_KIND:
+                return 3;
+            case TWO_PAIRS:
+            case ONE_PAIR:
+                return 2;
+            default:
+                return -1;
         }
     }
 
