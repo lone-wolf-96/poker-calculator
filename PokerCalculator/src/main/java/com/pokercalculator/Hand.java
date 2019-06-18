@@ -6,7 +6,6 @@ import java.util.function.Supplier;
 import java.util.Map;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import java.util.StringJoiner;
 
 public final class Hand {
     public static final int HAND_SIZE = 5;
@@ -34,21 +33,17 @@ public final class Hand {
     }
 
     public String toStringName() {
-        final Card[] cards = getCards();
+        final Stream<Card> cards = Arrays.stream(getCards());
 
-        final StringJoiner sj = new StringJoiner("\n");
+        final String[] cardNames = cards.map(card -> card.toStringName()).toArray(String[]::new);
 
-        for (Card card : cards) {
-            sj.add(card.toStringName());
-        }
-
-        return sj.toString();
+        return String.join("\n", cardNames);
     }
 
     private HandRanks evaluate() {
         final Supplier<Stream<Card>> cardsInHand = () -> Arrays.stream(getCards());
 
-        final boolean isFlush = cardsInHand.get().map(card -> card.getSuit()).distinct().count() == 1;
+        final boolean isFlush = cardsInHand.get().map(card -> card.getSuit().getSuitValue()).distinct().count() == 1;
 
         final int[] rankNumbers = cardsInHand.get().mapToInt(card -> card.getRank().getRankNumber()).toArray();
 
@@ -84,11 +79,10 @@ public final class Hand {
         if (isThreeOfAKind) {
             return HandRanks.THREE_OF_A_KIND;
         }
-
-        if (Collections.frequency(frequencyMap.values(), 2) == 2) {
-            return HandRanks.TWO_PAIRS;
-        }
         if (isOnePair) {
+            if (Collections.frequency(frequencyMap.values(), 2) == 2) {
+                return HandRanks.TWO_PAIRS;
+            }
             return HandRanks.ONE_PAIR;
         }
 
@@ -116,14 +110,10 @@ public final class Hand {
 
     @Override
     public String toString() {
-        final Card[] cards = getCards();
+        final Stream<Card> cards = Arrays.stream(getCards());
 
-        final StringJoiner sj = new StringJoiner(" ");
+        final String[] cardNames = cards.map(card -> card.toString()).toArray(String[]::new);
 
-        for (Card card : cards) {
-            sj.add(card.toString());
-        }
-
-        return sj.toString();
+        return String.join("\n", cardNames);
     }
 }
