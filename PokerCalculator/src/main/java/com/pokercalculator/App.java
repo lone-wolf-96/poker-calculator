@@ -7,11 +7,11 @@ public final class App {
         try (final Scanner sc = new Scanner(System.in)) {
             System.out.println("Enter the pokerdata.txt source directory (Press Enter for default):");
             String nextLine = sc.nextLine().trim();
-            String sourcePath = getFolder(nextLine, "pokerdata.txt");
+            final String sourcePath = getFolder(nextLine) + "pokerdata.txt";
 
-            System.out.println("Enter the poker_results.txt target directory (Press Enter for default):");
+            System.out.println("Enter the target directory (Press Enter for default):");
             nextLine = sc.nextLine().trim();
-            String targetPath = getFolder(nextLine, "poker_results.txt");
+            final String targetPath = getFolder(nextLine);
 
             if (new Calculator(sourcePath).printResults(targetPath)) {
                 System.out.println("Successful results in your folder.");
@@ -24,7 +24,10 @@ public final class App {
         }
     }
 
-    private static String getFolder(String line, String fileName) {
-        return ((line.length() > 0) ? line : System.getProperty("user.dir")) + "\\" + fileName;
+    private static String getFolder(String line) {
+        if (line.length() > 0) {
+            return line + (line.charAt(line.length() - 1) == '\\' ? "" : "\\");
+        }
+        return System.getProperty("user.dir") + "\\";
     }
 }

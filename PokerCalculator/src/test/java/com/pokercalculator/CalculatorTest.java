@@ -28,7 +28,7 @@ public final class CalculatorTest {
 
     @Test
     public void testPrintResults() {
-        final String filePathTarget = System.getProperty("user.dir") + "\\" + "poker_results.txt";
+        final String filePathTarget = System.getProperty("user.dir") + "\\";
 
         assertTrue(new Calculator(FILE_PATH_SOURCE).printResults(filePathTarget));
     }

@@ -8,22 +8,22 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public final class Hand {
-    public static final int HAND_SIZE = 5;
+    private static final int HAND_SIZE = 5;
 
-    private final HandRanks handRank;
-    private final Card[] cards;
+    private final HandRanks _handRank;
+    private final Card[] _cards;
 
     public Hand(Card[] cards) {
-        this.cards = cards;
-        this.handRank = evaluate();
+        this._cards = cards;
+        this._handRank = evaluate();
     }
 
     public Card[] getCards() {
-        return cards;
+        return _cards;
     }
 
     public HandRanks getHandRank() {
-        return handRank;
+        return _handRank;
     }
 
     public static Card[] fromString(String input) {

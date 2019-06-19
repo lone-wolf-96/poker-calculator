@@ -6,25 +6,25 @@ import java.util.Map;
 public enum Suits {
     SPADES('S'), HEARTS('H'), CLUBS('C'), DIAMONDS('D');
 
-    private char suit;
+    private final char _suit;
 
-    private static Map<Character, Suits> suitBySuitValue = new HashMap<Character, Suits>();
+    private static final Map<Character, Suits> SUIT_BY_VALUE = new HashMap<Character, Suits>();
 
     static {
         for (Suits suit : Suits.values()) {
-            suitBySuitValue.put(suit.getSuitValue(), suit);
+            SUIT_BY_VALUE.put(suit.getSuitValue(), suit);
         }
     }
 
     public char getSuitValue() {
-        return suit;
+        return _suit;
     }
 
     public static Suits getSuitBySuitValue(char suitValue) {
-        return suitBySuitValue.get(suitValue);
+        return SUIT_BY_VALUE.get(suitValue);
     }
 
     private Suits(char suit) {
-        this.suit = suit;
+        this._suit = suit;
     }
 }

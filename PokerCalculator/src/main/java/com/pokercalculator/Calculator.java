@@ -14,46 +14,57 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public final class Calculator {
-    private int[] winners;
-    private int games;
+    private int[] _winners;
+    private int _games;
+
+    private String[] _messages;
 
     public Calculator(String filePath) {
-        winners = new int[] { 0, 0, 0 };
-        games = 0;
+        _winners = new int[] { 0, 0, 0 };
+        _games = 0;
         calculate(filePath);
     }
 
     public int[] getWinners() {
-        return winners;
+        return _winners;
     }
 
     public int getGames() {
-        return games;
+        return _games;
     }
 
     public boolean printResults(String filePath) {
-        try (final PrintWriter printWriter = new PrintWriter(new FileWriter(filePath))) {
-            int[] winners = getWinners();
-            int games = getGames();
+        try (final PrintWriter printWriterReport =
+                new PrintWriter(new FileWriter(filePath + "poker_results_report.txt"));
+            final PrintWriter printWriterResult =
+                new PrintWriter(new FileWriter(filePath + "poker_results.txt"))) {
+            final SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            final String dateFormat = "Date and Time: " + format.format(new Date());
 
-            printWriter.println("Total Games: " + games);
+            final int[] winners = getWinners();
+            final int games = getGames();
 
             for (int i = 0; i < 3; i++) {
-                printWriter.println((i + 1) + ": " + winners[i]);
+                printWriterReport.println((i + 1) + ": " + winners[i]);
             }
 
             String p1Percentage = String.format("%.2f", ((float) winners[0] / games) * 100);
             String p2Percentage = String.format("%.2f", ((float) winners[1] / games) * 100);
 
-            printWriter.println("4:");
-            printWriter.println("--------- PLAYER 1 --------- | --------- PLAYER 2 ---------");
-            printWriter.println(
+            printWriterReport.println("4:");
+            printWriterReport.println("--------- PLAYER 1 --------- | --------- PLAYER 2 ---------");
+            printWriterReport.println(
                     "           " + p1Percentage + "%            |             " + p2Percentage + "%          ");
-            printWriter.println("---------------------------- | ----------------------------");
+            printWriterReport.println("---------------------------- | ----------------------------");
 
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            printWriterReport.println("Total Games: " + games);
 
-            printWriter.print("Date and Time: " + format.format(new Date()));
+            for (String message : _messages) {
+                printWriterResult.println(message);
+            }
+
+            printWriterReport.print(dateFormat);
+            printWriterResult.print(dateFormat);
 
             return true;
         } catch (Exception e) {
@@ -72,10 +83,11 @@ public final class Calculator {
 
         final String[] pokerArray = pokerData.split("-");
 
-        games = pokerArray.length;
+        _games = pokerArray.length;
+        _messages = new String[getGames()];
 
-        for (String game : pokerArray) {
-            final String[] gameArray = game.split(" ");
+        for (int i = 0; i < _games; i++) {
+            final String[] gameArray = pokerArray[i].split(" ");
             final int n = (gameArray.length + 1) / 2;
 
             final String handString1 = String.join(" ", Arrays.copyOfRange(gameArray, 0, n));
@@ -84,13 +96,19 @@ public final class Calculator {
             final Hand hand1 = new Hand(Hand.fromString(handString1));
             final Hand hand2 = new Hand(Hand.fromString(handString2));
 
-            winners[checkWinner(hand1, hand2)]++;
+            final int winnerIndex = checkWinner(hand1, hand2);
+            final String winnerMessage = (winnerIndex < 2 ? "Winner " + (winnerIndex + 1) : "Draw");
+
+            _messages[i] = (winnerMessage + " : " + hand1.getHandRank().toString().replace('_', ' ') + " - "
+                    + hand2.getHandRank().toString().replace('_', ' '));
+
+            _winners[winnerIndex]++;
         }
     }
 
     private String getPokerData(String filePath) {
         try (final BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String[] lines = reader.lines().toArray(String[]::new);
+            final String[] lines = reader.lines().toArray(String[]::new);
 
             return String.join("-", lines);
         } catch (Exception e) {
@@ -201,13 +219,13 @@ public final class Calculator {
         final int hand1Rank = hand1.getHandRank().ordinal();
         final int hand2Rank = hand2.getHandRank().ordinal();
 
-        int winners = checkWinnerHelper(hand1Rank, hand2Rank);
+        final int winners = checkWinnerHelper(hand1Rank, hand2Rank);
 
         return winners != 2 ? winners : breakTie(hand1, hand2);
     }
 
     private int checkWinnerHelper(int num1, int num2) {
-        int resultComparer = Integer.compare(num1, num2);
+        final int resultComparer = Integer.compare(num1, num2);
 
         return (resultComparer + 2) % 3;
     }
