@@ -26,7 +26,7 @@ It requires no other installation than having JDK (Java 8 minimum). Personally, 
 
 ### Usage
 
-The process is simple, once is run, it will ask for the pokerdata.txt source directory and then, for the poker_results.txt target directory (pokerdata.txt was added as an example for file format).
+The process is simple, once is run, it will ask for the pokerdata.txt source directory and then, for the target directory (pokerdata.txt was added as an example for file format).
 
 Unit tests are included.
 
