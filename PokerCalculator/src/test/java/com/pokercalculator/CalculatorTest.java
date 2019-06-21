@@ -4,18 +4,12 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public final class CalculatorTest {
     private static final String FILE_PATH_SOURCE = System.getProperty("user.dir") + "\\" + "pokerdata.txt";
 
-    private static Calculator CALCULATOR;
-
-    @BeforeClass
-    public static void initCalculator() {
-        CALCULATOR = new Calculator(FILE_PATH_SOURCE);
-    }
+    private static final Calculator CALCULATOR = new Calculator(FILE_PATH_SOURCE);
 
     @Test
     public void testCalculator() {
