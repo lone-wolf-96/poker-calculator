@@ -1,11 +1,11 @@
 package com.pokercalculator;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 import java.util.TreeMap;
+import java.util.function.Predicate;
+import java.util.function.ToIntFunction;
+import java.util.stream.Stream;
 
 public final class Utility {
     public static int[] replaceAceForOneIf(int[] rankNumbers) {
@@ -13,28 +13,27 @@ public final class Utility {
                 && Arrays.binarySearch(rankNumbers, 2) > 0;
 
         if (hasAceAndTwo) {
-            List<Integer> ranksList = toListInteger(rankNumbers);
-
-            Collections.replaceAll(ranksList, 14, 1);
-
-            rankNumbers = toIntArray(ranksList);
-
+            rankNumbers = mapToIntArray(rankNumbers, (rankN -> (rankN == 14) ? 1 : rankN));
             Arrays.sort(rankNumbers);
         }
 
         return rankNumbers;
     }
 
-    public static List<Integer> toListInteger(int[] array) {
-        return toListInteger(Arrays.stream(array).boxed());
+    public static int[] mapToIntArray(int[] rankNumbers, ToIntFunction<? super Integer> intFunction) {
+        return mapToIntArray(Arrays.stream(rankNumbers).boxed(), intFunction);
     }
 
-    public static List<Integer> toListInteger(Stream<Integer> streamInteger) {
-        return Arrays.asList(streamInteger.toArray(Integer[]::new));
+    public static int[] mapToIntArray(Stream<Integer> streamNumbers, ToIntFunction<? super Integer> intFunction) {
+        return streamNumbers.mapToInt(intFunction).toArray();
     }
 
-    public static int[] toIntArray(List<Integer> list) {
-        return list.stream().mapToInt(i -> i).toArray();
+    public static int[] mapToIntArray(Stream<Integer> streamNumbers) {
+        return streamNumbers.mapToInt(i -> i).toArray();
+    }
+
+    public static int[] filterIntArray(int[] rankNumbers, Predicate<? super Integer> intPredicate) {
+        return Arrays.stream(rankNumbers).boxed().filter(intPredicate).mapToInt(i -> i).toArray();
     }
 
     public static Map<Integer, Integer> getFrequencyMap(int[] rankNumbers) {

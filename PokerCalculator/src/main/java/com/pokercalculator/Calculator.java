@@ -6,10 +6,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -20,24 +17,23 @@ public final class Calculator {
     private String[] _messages;
 
     public Calculator(String filePath) {
-        _winners = new int[] { 0, 0, 0 };
-        _games = 0;
+        this._winners = new int[] { 0, 0, 0 };
+        this._games = 0;
         calculate(filePath);
     }
 
     public int[] getWinners() {
-        return _winners;
+        return this._winners;
     }
 
     public int getGames() {
-        return _games;
+        return this._games;
     }
 
     public boolean printResults(String filePath) {
-        try (final PrintWriter printWriterReport =
-                new PrintWriter(new FileWriter(filePath + "poker_results_report.txt"));
-            final PrintWriter printWriterResult =
-                new PrintWriter(new FileWriter(filePath + "poker_results.txt"))) {
+        try (final PrintWriter printWriterReport = new PrintWriter(
+                new FileWriter(filePath + "poker_results_report.txt"));
+                final PrintWriter printWriterResult = new PrintWriter(new FileWriter(filePath + "poker_results.txt"))) {
             final SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             final String dateFormat = "Date and Time: " + format.format(new Date());
 
@@ -83,10 +79,10 @@ public final class Calculator {
 
         final String[] pokerArray = pokerData.split("-");
 
-        _games = pokerArray.length;
-        _messages = new String[getGames()];
+        this._games = pokerArray.length;
+        this._messages = new String[getGames()];
 
-        for (int i = 0; i < _games; i++) {
+        for (int i = 0; i < this._games; i++) {
             final String[] gameArray = pokerArray[i].split(" ");
             final int n = (gameArray.length + 1) / 2;
 
@@ -99,10 +95,10 @@ public final class Calculator {
             final int winnerIndex = checkWinner(hand1, hand2);
             final String winnerMessage = (winnerIndex < 2 ? "Winner " + (winnerIndex + 1) : "Draw");
 
-            _messages[i] = (winnerMessage + " : " + hand1.getHandRank().toString().replace('_', ' ') + " - "
+            this._messages[i] = (winnerMessage + " : " + hand1.getHandRank().toString().replace('_', ' ') + " - "
                     + hand2.getHandRank().toString().replace('_', ' '));
 
-            _winners[winnerIndex]++;
+            this._winners[winnerIndex]++;
         }
     }
 
@@ -170,9 +166,6 @@ public final class Calculator {
         final Map<Integer, Integer> frequencyMap1 = Utility.getFrequencyMap(rankNumbers1);
         final Map<Integer, Integer> frequencyMap2 = Utility.getFrequencyMap(rankNumbers2);
 
-        final List<Integer> rankNumbersList1 = new LinkedList<Integer>(Utility.toListInteger(rankNumbers1));
-        final List<Integer> rankNumbersList2 = new LinkedList<Integer>(Utility.toListInteger(rankNumbers2));
-
         final int frequentEqualN1 = frequencyMap1.keySet().stream().filter(key -> frequencyMap1.get(key) == tieBreaker)
                 .findAny().get();
         final int frequentEqualN2 = frequencyMap2.keySet().stream().filter(key -> frequencyMap2.get(key) == tieBreaker)
@@ -184,17 +177,20 @@ public final class Calculator {
             return winners;
         }
 
-        rankNumbersList1.removeAll(Arrays.asList(frequentEqualN1));
-        rankNumbersList2.removeAll(Arrays.asList(frequentEqualN2));
+        final Stream<Integer> streamRanks1 = Arrays.stream(rankNumbers1).boxed().filter(rankN -> rankN != frequentEqualN1);
+        final Stream<Integer> streamRanks2 = Arrays.stream(rankNumbers2).boxed().filter(rankN -> rankN != frequentEqualN1);
 
-        return breakTieHighCard(rankNumbersList1, rankNumbersList2);
+        rankNumbers1 = Utility.mapToIntArray(streamRanks1);
+        rankNumbers2 = Utility.mapToIntArray(streamRanks2);
+
+        return breakTieHighCard(rankNumbers1, rankNumbers2);
     }
 
     private int breakTieStraight(int[] rankNumbers1, int[] rankNumbers2) {
-        final List<Integer> ranksList1 = Utility.toListInteger(Utility.replaceAceForOneIf(rankNumbers1));
-        final List<Integer> ranksList2 = Utility.toListInteger(Utility.replaceAceForOneIf(rankNumbers2));
+        int max1 = Arrays.stream(Utility.replaceAceForOneIf(rankNumbers1)).max().getAsInt();
+        int max2 = Arrays.stream(Utility.replaceAceForOneIf(rankNumbers2)).max().getAsInt();
 
-        return checkWinnerHelper(Collections.max(ranksList1), Collections.max(ranksList2));
+        return checkWinnerHelper(max1, max2);
     }
 
     private int breakTieHighCard(int[] rankNumbers1, int[] rankNumbers2) {
@@ -206,13 +202,6 @@ public final class Calculator {
             }
         }
         return winners;
-    }
-
-    private int breakTieHighCard(List<Integer> rankNumbersList1, List<Integer> rankNumbersList2) {
-        final int[] rankNumbers1 = Utility.toIntArray(rankNumbersList1);
-        final int[] rankNumbers2 = Utility.toIntArray(rankNumbersList2);
-
-        return breakTieHighCard(rankNumbers1, rankNumbers2);
     }
 
     private int checkWinner(Hand hand1, Hand hand2) {
