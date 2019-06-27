@@ -121,13 +121,12 @@ public final class Calculator {
             return 2;
         }
 
-        final Stream<Card> cardsInHand1 = Arrays.stream(hand1.getCards());
-        final Stream<Card> cardsInHand2 = Arrays.stream(hand2.getCards());
-
-        final int[] rankNumbers1 = cardsInHand1.mapToInt(card -> card.getRank().getRankNumber()).toArray();
+        final int[] rankNumbers1 = Arrays.stream(hand1.getCards()).mapToInt(card -> card.getRank().getRankNumber())
+                .toArray();
         Arrays.sort(rankNumbers1);
 
-        final int[] rankNumbers2 = cardsInHand2.mapToInt(card -> card.getRank().getRankNumber()).toArray();
+        final int[] rankNumbers2 = Arrays.stream(hand2.getCards()).mapToInt(card -> card.getRank().getRankNumber())
+                .toArray();
         Arrays.sort(rankNumbers2);
 
         if (rank == HandRanks.STRAIGHT_FLUSH || rank == HandRanks.STRAIGHT) {
@@ -149,16 +148,16 @@ public final class Calculator {
 
     private int breakTieRestHelper(HandRanks rank) {
         switch (rank) {
-            case FOUR_OF_A_KIND:
-                return 4;
-            case FULL_HOUSE:
-            case THREE_OF_A_KIND:
-                return 3;
-            case TWO_PAIRS:
-            case ONE_PAIR:
-                return 2;
-            default:
-                return -1;
+        case FOUR_OF_A_KIND:
+            return 4;
+        case FULL_HOUSE:
+        case THREE_OF_A_KIND:
+            return 3;
+        case TWO_PAIRS:
+        case ONE_PAIR:
+            return 2;
+        default:
+            return -1;
         }
     }
 
@@ -177,8 +176,10 @@ public final class Calculator {
             return winners;
         }
 
-        final Stream<Integer> streamRanks1 = Arrays.stream(rankNumbers1).boxed().filter(rankN -> rankN != frequentEqualN1);
-        final Stream<Integer> streamRanks2 = Arrays.stream(rankNumbers2).boxed().filter(rankN -> rankN != frequentEqualN1);
+        final Stream<Integer> streamRanks1 = Arrays.stream(rankNumbers1).boxed()
+                .filter(rankN -> rankN != frequentEqualN1);
+        final Stream<Integer> streamRanks2 = Arrays.stream(rankNumbers2).boxed()
+                .filter(rankN -> rankN != frequentEqualN1);
 
         rankNumbers1 = Utility.mapToIntArray(streamRanks1);
         rankNumbers2 = Utility.mapToIntArray(streamRanks2);
